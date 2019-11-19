@@ -1,0 +1,34 @@
+stages:
+  - dependencies
+  - build
+  - deploy
+
+'UI dependencies':
+  image: node:8.15-alpine
+  stage: dependencies
+  artifacts:
+    paths:
+      - node_modules/
+  dependencies: []
+  script:
+    - npm install
+
+'UI build':
+  image: node:8.15-alpine
+  stage: build
+  artifacts:
+    paths:
+      - build/
+  dependencies:
+    - 'UI dependencies'
+  script:
+    - npm run build
+
+'UI deploy':
+  stage: deploy
+  image: "ruby:2.5"
+  script:
+    - apt-get update -qy
+    - apt-get install rubygems ruby-dev -y
+    - gem install dpl
+    - dpl --provider=heroku --app=e-commerce-dashboard --api-key=5b36f53f-5fd3-4d3b-b78a-3c1e9e4fd733 --skip_cleanup
