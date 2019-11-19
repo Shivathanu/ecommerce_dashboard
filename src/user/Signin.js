@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
 import Layout from "../core/Layout";
-import { signin } from "../auth"
+import { signin, authenticate } from "../auth"
 
 const Signin = () => {
     const [values, setValues] = useState({
@@ -9,10 +9,10 @@ const Signin = () => {
         password: '',
         error: '',
         loading: false,
-        readirectToReferrer: false,
+        redirectToReferrer: false,
     });
 
-    const { email, password, loading, error, readirectToReferrer } = values;
+    const { email, password, loading, error, redirectToReferrer } = values;
 
     const clickSubmit = (event) => {
         event.preventDefault()
@@ -30,9 +30,13 @@ const Signin = () => {
                         loading: false
                     })
                 } else {
-                    setValues({
-                        ...values,
-                        readirectToReferrer: true
+                    authenticate(
+                        data,
+                        () => {
+                            setValues({
+                                ...values,
+                                redirectToReferrer: true
+                            });
                     });
                 }
             });
@@ -84,7 +88,7 @@ const Signin = () => {
     );
 
     const redirectUser = () => {
-        if (readirectToReferrer) {
+        if (redirectToReferrer) {
             return <Redirect to="/" />
         }
     }
