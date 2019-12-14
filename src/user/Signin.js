@@ -46,7 +46,7 @@ const Signin = () => {
         setValues({ ...values, error: false, [name]: event.target.value })
     }
 
-    const signUpForm = () => (
+    const signInForm = () => (
         <form>
             <div className="form-group">
                 <label className="text-muted">Email</label>
@@ -83,7 +83,7 @@ const Signin = () => {
         loading && (
             <div className="alert alert-info">
                 <h2>Loading...</h2>
-            </div>        
+            </div>
         )
     );
 
@@ -95,13 +95,13 @@ const Signin = () => {
 
     return (
         <Layout
-            title="Signup page"
-            description="Sign up to the page"
+            title="Signin page"
+            description="Sign in to the page"
             className="container col-md-8 offset-md-2">
             {showLoading()}
             {redirectUser()}
             {showError()}
-            {signUpForm()}
+            {signInForm()}
         </Layout>
     )
 };
