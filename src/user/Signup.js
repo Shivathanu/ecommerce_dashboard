@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import { Link } from 'react-router-dom';
 import Layout from "../core/Layout";
 import { signup } from "../auth"
 
@@ -76,7 +75,7 @@ const Signup = () => {
                     value={password}
                 />
             </div>
-            <button onClick={clickSubmit} className="btn-btn-primary">Submit</button>
+            <button onClick={clickSubmit} className="btn btn-primary btn-sm">Submit</button>
         </form>
     );
 
@@ -92,7 +91,7 @@ const Signup = () => {
         <div
             className="alert alert-info"
             style={{ display: success ? '' : 'none' }}>
-            New account is created. Please <Link to="/signin">Signin</Link>
+            New account is created. Please <a href="/signin" class="alert-link">SignIn</a>
         </div>
     );
 
