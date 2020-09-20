@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Layout from "../core/Layout";
 import { isAuthenticated } from "../auth"
 import createCategory from "./apiAdmin";
+import { Link } from 'react-router-dom';
 
 const AddCategory = () => {
     const [name, setName] = useState('');
@@ -25,6 +26,14 @@ const AddCategory = () => {
             return <h3 className="text-danger">Category should be unique</h3>
         }
     };
+
+    const goBack = () => (
+        <div className="mt-5">
+            <Link to="/admin/dashboard" className="text-warning">
+                Back to Dashboard
+            </Link>
+        </div>
+    );
 
     const clickSubmit = (e) => {
         e.preventDefault();
@@ -70,6 +79,7 @@ const AddCategory = () => {
                     {showSuccess()}
                     {showError()}
                     {newCategoryForm()}
+                    {goBack()}
                 </div>
             </div>
         </Layout>

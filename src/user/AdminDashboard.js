@@ -7,7 +7,7 @@ const AdminDashboard = () => {
     const { user: { email, name, role } } = isAuthenticated();
     const adminLinks = () => (
         <div className="card">
-            <h4 className="card-header">User Links</h4>
+            <h4 className="card-header">Admin Links</h4>
             <li className="list-group-item">
                 <Link className="nav-link" to="/create/category">Create Category</Link>
             </li>
