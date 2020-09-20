@@ -38,7 +38,7 @@ const Dashboard = () => {
     );
 
     return (
-        <Layout title="Dashboard" description="User Dashboard" className="container">
+        <Layout title="Dashboard" description={`G'day ${name}`} className="container">
             <div className="row">
                 <div className="col-3">
                     {userLinks()}

@@ -13,7 +13,7 @@ const Signin = () => {
     });
 
     const { email, password, loading, error, redirectToReferrer } = values;
-    const { user } = isAuthenticated;
+    const { user } = isAuthenticated();
     const clickSubmit = (event) => {
         event.preventDefault()
         setValues({
@@ -92,8 +92,11 @@ const Signin = () => {
             if (user && user.role === 1) {
                 return <Redirect to="/admin/dashboard" />
             } else {
-                return <Redirect to="/dashboard" />
+                return <Redirect to="/user/dashboard" />
             }
+        }
+        if (isAuthenticated()) {
+            return <Redirect to="/" />
         }
     }
 
