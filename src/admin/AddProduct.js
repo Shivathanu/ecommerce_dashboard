@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../core/Layout";
 import { isAuthenticated } from "../auth"
-import createProduct from "./apiAdmin";
+import createProduct, { getCategories } from "./apiAdmin";
 
 const AddProduct = () => {
     const [values, setValues] = useState({
@@ -26,20 +26,30 @@ const AddProduct = () => {
         description,
         price,
         categories,
-        category,
-        shipping,
+        //category,
+        //shipping,
         quantity,
-        photo,
+        //photo,
         loading,
         error,
         createdProduct,
-        redirectToProfile,
+        //redirectToProfile,
         formData
     } = values;
 
+    const init = () => {
+        getCategories().then(data => {
+            if (data.error) {
+                setValues({ ...values, error: data.error })
+            } else {
+                setValues({ ...values, categories: data, formData: new FormData() })
+            }
+        });
+    };
+
     useEffect(() => {
-        setValues({ ...values, formData: new FormData() });
-    }, []);
+        init();
+    });
 
     const handleChange = name => event => {
         const value = name === 'photo' ? event.target.files[0] : event.target.value;
@@ -115,8 +125,10 @@ const AddProduct = () => {
                     className="form-control"
                     name="category"
                 >
-                    <option value="5dbc6e8b0a45b122c0b03a41">Python</option>
-                    <option value="5dbc62ba0a45b122c0b03a3a">Node</option>
+                    <option>Please Select</option>
+                    {categories && categories.map((c, i) => {
+                        return (<option key={i} value={c._id}>{c.name}</option>)
+                    })}
                 </select>
             </div>
             <div className="form-group">
@@ -143,6 +155,24 @@ const AddProduct = () => {
         </form>
     );
 
+    const showError = () => (
+        <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
+            {error}
+        </div>
+    )
+
+    const showSuccess = () => (
+        <div className="alert alert-info" style={{ display: createdProduct ? '' : 'none' }}>
+            <h2>{`${createdProduct}`} is created!</h2>
+        </div>
+    )
+
+    const showLoading = () => (
+        loading && (
+            <div className="alert alert-success">Loading...</div>
+        )
+    )
+
     return (
         <Layout
             title="Add a new product"
@@ -150,12 +180,14 @@ const AddProduct = () => {
         >
             <div className="row">
                 <div className="col-md-8 offset-md-2">
+                    {showError()}
+                    {showSuccess()}
+                    {showLoading()}
                     {newPostForm()}
                 </div>
             </div>
         </Layout>
     );
-
 };
 
 export default AddProduct;
