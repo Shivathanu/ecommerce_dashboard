@@ -38,5 +38,3 @@ export const getCategories = () => {
         return response.json();
     }).catch(err => console.log(err));
 };
-
-export default createProduct;

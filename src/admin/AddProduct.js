@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../core/Layout";
 import { isAuthenticated } from "../auth"
-import createProduct, { getCategories } from "./apiAdmin";
+import { createProduct, getCategories } from "./apiAdmin";
 
 const AddProduct = () => {
     const [values, setValues] = useState({
@@ -20,7 +20,6 @@ const AddProduct = () => {
         formData: ''
     });
     const { user, token } = isAuthenticated();
-
     const {
         name,
         description,
@@ -33,6 +32,7 @@ const AddProduct = () => {
         loading,
         error,
         createdProduct,
+        redirectToProfile,
         formData
     } = values;
 
@@ -53,7 +53,7 @@ const AddProduct = () => {
     const handleChange = name => event => {
         const value = name === 'photo' ? event.target.files[0] : event.target.value;
         formData.set(name, value);
-        setValues({ ...values, [name]: value });
+        setValues({ error: '', ...values, [name]: value });
     }
 
     const clickSubmit = event => {
@@ -89,7 +89,6 @@ const AddProduct = () => {
                         type="file"
                         name="photo"
                         accept="image/*"
-                        key={photo}
                     />
                 </label>
             </div>
@@ -124,7 +123,6 @@ const AddProduct = () => {
                     onChange={handleChange('category')}
                     className="form-control"
                     name="category"
-                    key={category}
                 >
                     <option>Please Select</option>
                     {categories && categories.map((c, i) => {
@@ -138,8 +136,8 @@ const AddProduct = () => {
                     onChange={handleChange('shipping')}
                     className="form-control"
                     name="shipping"
-                    key={shipping}
                 >
+                    <option>Yes / No</option>
                     <option value="0">Yes</option>
                     <option value="1">No</option>
                 </select>
