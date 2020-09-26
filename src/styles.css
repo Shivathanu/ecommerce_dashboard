@@ -16,6 +16,10 @@
     min-height: 100px;
 }
 
+/**
+* jumbotron animation
+**/
+
 .jumbotron {
     width: 30wh;
     height: 30vh;
@@ -25,6 +29,16 @@
     -webkit-animation: Gradient 15s ease infinite;
     -moz-animation: Gradient 15s ease infinite;
     animation: Gradient 15s ease infinite;
+}
+
+.jumbotron h2 {
+    margin-top: -20px;
+}
+
+@media only screen and (max-width: 600px) {
+    .jumbotron h2 {
+        margin-top: 10px;
+    }
 }
 
 @-webkit-keyframes Gradient {
