@@ -31,6 +31,7 @@ const Home = () => {
     useEffect(() => {
         loadProductsByArrival();
         loadProductsBySell();
+    // eslint-disable-next-line
     }, [])
 
     return (

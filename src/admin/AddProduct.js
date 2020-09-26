@@ -16,7 +16,6 @@ const AddProduct = () => {
         loading: false,
         error: '',
         createdProduct: '',
-        redirectToProfile: false,
         formData: ''
     });
     const { user, token } = isAuthenticated();
@@ -32,7 +31,6 @@ const AddProduct = () => {
         loading,
         error,
         createdProduct,
-        redirectToProfile,
         formData
     } = values;
 
@@ -48,6 +46,7 @@ const AddProduct = () => {
 
     useEffect(() => {
         init();
+    // eslint-disable-next-line
     }, []);
 
     const handleChange = name => event => {
@@ -83,7 +82,7 @@ const AddProduct = () => {
         <form className="mb-3" onSubmit={clickSubmit}>
             <h4>Post photo</h4>
             <div className="form-group">
-                <label className="btn btn-secondary">
+                <label id={photo} className="btn btn-secondary">
                     <input
                         onChange={handleChange('photo')}
                         type="file"
@@ -118,7 +117,7 @@ const AddProduct = () => {
                 />
             </div>
             <div className="form-group">
-                <label className="text-muted">Category</label>
+                <label id={category} className="text-muted">Category</label>
                 <select
                     onChange={handleChange('category')}
                     className="form-control"
@@ -131,7 +130,7 @@ const AddProduct = () => {
                 </select>
             </div>
             <div className="form-group">
-                <label className="text-muted">Shipping</label>
+                <label id={shipping} className="text-muted">Shipping</label>
                 <select
                     onChange={handleChange('shipping')}
                     className="form-control"
