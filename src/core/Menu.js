@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { signout, isAuthenticated } from '../auth';
+import Navbar from '../components/Navbar';
+import './Menu.css'
 
 const isActive = (history, path) => {
     if(history.location.pathname === path) {
@@ -12,7 +14,10 @@ const isActive = (history, path) => {
 
 const Menu = ({ history }) => (
     <div>
-        <ul className="nav nav-tabs bg-primary">
+        <ul className="nav nav-tabs">
+            <li className="nav-item">
+                <Navbar />
+            </li>
             <li className="nav-item">
                 <Link
                     className="nav-link"
